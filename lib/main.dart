@@ -3,8 +3,16 @@ import 'package:flutter_app_patron_bloc/src/bloc/provider.dart';
 
 import 'package:flutter_app_patron_bloc/src/pages/home_page.dart';
 import 'package:flutter_app_patron_bloc/src/pages/login_page.dart';
+import 'package:flutter_app_patron_bloc/src/pages/product_page.dart';
+import 'package:flutter_app_patron_bloc/src/pages/registro_page.dart';
+import 'package:flutter_app_patron_bloc/src/preferencias_usuario/preferencias_usuario.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = new PreferenciasUsuario();
+  await prefs.initPrefs();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -16,7 +24,9 @@ class MyApp extends StatelessWidget {
       initialRoute: 'login',
       routes: {
         'login': (context) => LoginPage(),
-        'home': (context) => HomePage()
+        'home': (context) => HomePage(),
+        'product': (context) => ProductPage(),
+        'registro': (context) => RegistroPage(),
       },
       theme: ThemeData(primaryColor: Colors.deepPurpleAccent),
     ));

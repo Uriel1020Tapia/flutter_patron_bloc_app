@@ -3,7 +3,7 @@ import 'package:flutter_app_patron_bloc/src/bloc/provider.dart';
 import 'package:flutter_app_patron_bloc/src/providers/usuario_provide.dart';
 import 'package:flutter_app_patron_bloc/src/utils/utils.dart';
 
-class LoginPage extends StatelessWidget {
+class RegistroPage extends StatelessWidget {
   final usuarioProvider = new UsuarioProvider();
 
   @override
@@ -116,7 +116,7 @@ class LoginPage extends StatelessWidget {
                 ]),
             child: Column(
               children: [
-                Text('Ingreso', style: TextStyle(fontSize: 20.0)),
+                Text('Crear cuenta', style: TextStyle(fontSize: 20.0)),
                 SizedBox(height: 60.0),
                 _createEmail(bloc),
                 SizedBox(height: 30.0),
@@ -135,9 +135,8 @@ class LoginPage extends StatelessWidget {
               onPrimary: Colors.white,
               padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
             ),
-            onPressed: () =>
-                Navigator.pushReplacementNamed(context, 'registro'),
-            child: const Text('Crear cuenta'),
+            onPressed: () => Navigator.pushReplacementNamed(context, 'Login'),
+            child: const Text('¿Ya tienes una cuenta?'),
           ),
           SizedBox(
             height: 100.0,
@@ -205,13 +204,13 @@ class LoginPage extends StatelessWidget {
           return ElevatedButton(
               style: style,
               child: Text('Ingresar'),
-              onPressed: snapshot.hasData ? () => _login(bloc, context) : null);
+              onPressed:
+                  snapshot.hasData ? () => _register(bloc, context) : null);
         });
   }
 
-  _login(LoginBloc bloc, BuildContext context) async {
-    Map info = await usuarioProvider.login(bloc.email, bloc.password);
-
+  _register(LoginBloc bloc, BuildContext context) async {
+    final info = await usuarioProvider.nuevoUsuario(bloc.email, bloc.password);
     if (info['ok']) {
       Navigator.pushReplacementNamed(context, 'home');
     } else {
